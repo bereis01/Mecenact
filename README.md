@@ -16,9 +16,9 @@
 
 ## Membros da equipe
 
-* Bernardo Reis de Almeida -> Full-stack developer
-* Matheus Farnese Lacerda Senna -> Full-stack developer
-* Wilgnert de Alcântara Rodrigues Batista -> Full-stack developer
+* Bernardo Reis de Almeida -> BD
+* Matheus Farnese Lacerda Senna -> Back-end
+* Wilgnert de Alcântara Rodrigues Batista -> Front-end
 
 ## Tecnologias
 
