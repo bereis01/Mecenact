@@ -50,3 +50,13 @@ def add_posts():
         db.create_post(post[0], post[1], post[2], post[3])
         return jsonify(post), 201
     return {"error": "Request must be JSON"}, 415
+
+@app.put("/tags")
+def update_tags():
+    if request.is_json:
+        info = request.get_json()
+        tag_array = info[2].split(",")
+        db.assign_tags(tag_array, info[0], info[1])
+        result = db.return_post(info[0], info[1])
+        return jsonify(result), 201
+    return {"error": "Request must be JSON"}, 415
