@@ -3,20 +3,50 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.get("/posts/<name>")
+@app.get("/user/<name>/login/<password>")
+def get_user(name, password):
+    target = db.return_user(name)
+    if(target == []):
+        return "User not found\n"
+    if (password == db.return_password(name)[0][0]):
+        return get_posts_user(name)
+    return "Wrong password\n"
+
+@app.get("/posts/user/<name>")
 def get_posts_user(name):
     result = db.posts_from_user(name)
     return jsonify(result)
 
-@app.get("/tags/<tag>")
-def get_posts_tags(tag):
-    result = db.posts_from_tag([tag])
+@app.get("/posts/tags/<tags>")
+def get_posts_tags(tags):
+    tag_array = tags.split(",")
+    result = db.search_tags(tag_array)
     return jsonify(result)
+
+@app.get("/posts/tags/<tags_t>/<tags_f>")
+def get_posts_tags_plus(tags_t, tags_f):
+    tag_array_t = tags_t.split(",")
+    tag_array_f = tags_f.split(",")
+    result_t = db.search_tags(tag_array_t)
+    result_f = db.search_tags(tag_array_f)
+    result = []
+    for element in result_t:
+        if element not in result_f:
+            result.append(element)
+    return jsonify(result)
+
+@app.post("/user")
+def add_user():
+    if request.is_json:
+        new_user = request.get_json()
+        db.create_user(new_user[0], new_user[1])
+        return jsonify(new_user), 201
+    return {"error": "Request must be JSON"}, 415
 
 @app.post("/posts")
 def add_posts():
     if request.is_json:
         post = request.get_json()
-        db.create_post (post[0], post[1], post[2], post[3])
+        db.create_post(post[0], post[1], post[2], post[3])
         return jsonify(post), 201
     return {"error": "Request must be JSON"}, 415
