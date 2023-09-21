@@ -206,18 +206,37 @@ def tags_from_post(author, post_id):
     connection.close()
     return result
 
-def posts_from_tag(tags):
+def search_tags(tags):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
-    # Queries all the posts that have a given list of tags.
-    result = []
-    for tag in tags:
-        data = (tag, )
-        query = cursor.execute("""
-                                SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
+    # Queries all the tags from a given post.
+    solution = []
+    has_all = []
+    for i in range (len(tags)):
+        data = (tags[i], )
+        query = cursor.execute("""SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
                                 """, data)
-        result = list(set(result).intersection(set(query.fetchall())))
+        result = query.fetchall()
+        if (i == 0):
+            solution = result
+        has_all = [value for value in result if value in solution]
+        solution = has_all
+    return solution
+        
+    # Finalizes the connection with the database.
+    connection.close()
+    return result
+
+def return_password(name):
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    # Queries all the tags from a given post.
+    data = (name, )
+    query = cursor.execute("""SELECT password FROM users WHERE (username = ?)
+                            """, data)
+    result = query.fetchall()
     # Finalizes the connection with the database.
     connection.close()
     return result
