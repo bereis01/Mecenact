@@ -217,7 +217,7 @@ def posts_from_tag(tags):
         query = cursor.execute("""
                                 SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
                                 """, data)
-        result = list(set(result).intersection(set(query.fetchall())))
+        result = list(set(result).union(set(query.fetchall())))
     # Finalizes the connection with the database.
     connection.close()
     return result
