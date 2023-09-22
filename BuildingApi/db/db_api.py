@@ -240,3 +240,21 @@ def return_password(name):
     # Finalizes the connection with the database.
     connection.close()
     return result
+
+def change_username(old_name, new_name):
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    data = (new_name, old_name)
+    cursor.execute("""
+                   UPDATE users SET username = ? WHERE username = ?
+                   """, data)
+    cursor.execute("""
+                   UPDATE posts SET author = ? WHERE author = ?
+                   """, data)
+    cursor.execute("""
+                   UPDATE tags SET author = ? WHERE author = ?
+                   """, data)
+    # Commit changes and finalizes the connection with the database.
+    connection.commit()
+    connection.close()
