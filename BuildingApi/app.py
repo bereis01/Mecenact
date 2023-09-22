@@ -35,6 +35,11 @@ def get_posts_tags_plus(tags_t, tags_f):
             result.append(element)
     return jsonify(result)
 
+@app.get("/tags/<author>/<post_id>")
+def get_tags(author, post_id):
+    result = db.tags_from_post(author, post_id)
+    return jsonify(result), 201
+
 @app.post("/user")
 def add_user():
     if request.is_json:
@@ -55,8 +60,39 @@ def add_posts():
 def update_tags():
     if request.is_json:
         info = request.get_json()
-        tag_array = info[2].split(",")
-        db.assign_tags(tag_array, info[0], info[1])
-        result = db.return_post(info[0], info[1])
+        tag_array = info[0].split(",")
+        db.assign_tags(tag_array, info[1], info[2])
+        return jsonify(tag_array)
+    return {"error": "Request must be JSON"}, 415
+
+@app.put("/user/<name>/<password>")
+def update_user(name, password):
+    if request.is_json:
+        info = request.get_json()
+        target = db.return_user(name)
+        if(target == []):
+            return "User not found\n"
+        if (password == db.return_password(name)[0][0]):
+            db.change_username(name, info[0])
+            return jsonify(info[0])
+        return "Wrong password\n"
+    return {"error": "Request must be JSON"}, 415
+
+@app.delete("/posts")
+def delete_post():
+    if request.is_json:
+        info = request.get_json()
+        result = db.remove_post(info[0], info[1])
         return jsonify(result), 201
     return {"error": "Request must be JSON"}, 415
+
+@app.delete("/user/<username>")
+def delete_user(username):
+    result = db.remove_user(username)
+    return jsonify(result), 201
+
+@app.delete("/tags/<tags>/<author>/<post_id>")
+def delete_tags(tags, author, post_id):
+    tag_array = tags.split(",")
+    result = db.remove_tags(tag_array, author, post_id)
+    return jsonify(result), 201
