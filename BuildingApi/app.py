@@ -78,21 +78,18 @@ def update_user(name, password):
         return "Wrong password\n"
     return {"error": "Request must be JSON"}, 415
 
-@app.delete("/posts")
-def delete_post():
-    if request.is_json:
-        info = request.get_json()
-        result = db.remove_post(info[0], info[1])
-        return jsonify(result), 201
-    return {"error": "Request must be JSON"}, 415
+@app.delete("/posts/<author>/<post_id>")
+def delete_post(author, post_id):
+    result = db.remove_post(author, post_id)
+    return jsonify(result)
 
 @app.delete("/user/<username>")
 def delete_user(username):
     result = db.remove_user(username)
-    return jsonify(result), 201
+    return jsonify(result)
 
 @app.delete("/tags/<tags>/<author>/<post_id>")
 def delete_tags(tags, author, post_id):
     tag_array = tags.split(",")
     result = db.remove_tags(tag_array, author, post_id)
-    return jsonify(result), 201
+    return jsonify(result)
