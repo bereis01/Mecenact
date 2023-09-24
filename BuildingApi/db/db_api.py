@@ -210,29 +210,28 @@ def search_tags(tags):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
-    # Queries all the tags from a given post.
+    # Queries all the posts that have the given tag(s).
     solution = []
     has_all = []
     for i in range (len(tags)):
         data = (tags[i], )
-        query = cursor.execute("""SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
+        query = cursor.execute("""
+                               SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
                                 """, data)
         result = query.fetchall()
         if (i == 0):
             solution = result
         has_all = [value for value in result if value in solution]
         solution = has_all
-    return solution
-        
     # Finalizes the connection with the database.
     connection.close()
-    return result
+    return solution
 
 def return_password(name):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
-    # Queries all the tags from a given post.
+    # Queries the password from a given username.
     data = (name, )
     query = cursor.execute("""SELECT password FROM users WHERE (username = ?)
                             """, data)
@@ -245,6 +244,7 @@ def change_username(old_name, new_name):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
+    # Updates the username of a given user on all tables.
     data = (new_name, old_name)
     cursor.execute("""
                    UPDATE users SET username = ? WHERE username = ?
