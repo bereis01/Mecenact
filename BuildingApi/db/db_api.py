@@ -11,7 +11,7 @@ def image_conversion(file_path):
 
 # Function to convert images from the appropriate format (BLOB).
 def image_retrieval(file_path, blob_data):
-    with open(file_path, 'rb') as image:
+    with open(file_path, 'wb') as image:
         image.write(blob_data)
 
 # Database interface.
@@ -233,7 +233,8 @@ def return_password(name):
     cursor = connection.cursor()
     # Queries the password from a given username.
     data = (name, )
-    query = cursor.execute("""SELECT password FROM users WHERE (username = ?)
+    query = cursor.execute("""
+                           SELECT password FROM users WHERE (username = ?)
                             """, data)
     result = query.fetchall()
     # Finalizes the connection with the database.
