@@ -49,29 +49,40 @@
 * Como visualizador, gostaria de ter acesso a um histórico de artes vistas recentemente.
 * Como visualizador, gostaria de fazer download de imagens.
 * Como visualizador, gostaria de propor comissões.
- 
+
 ## Backlog do Sprint
 
-### História #1: Como usuário, gostaria de poder criar uma conta.
+### História #1: Como usuário, gostaria de poder criar uma conta
+
 **Tarefas e responsáveis:**
+
 * Criar um banco de dados que armazenará as credenciais de cada usuário. [Bernardo]
 * Elaborar as tabelas que representarão cada usuário no banco de dados. [Bernardo]
 * Elaborar uma interface de usuário para a credenciação. [Wilgnert]
 * Fazer a comunicação entre a credenciação e o banco de dados. [Matheus]
 * Fazer a transição da interface de credenciação para o feed. [Wilgnert]
-### História #2 Como usuário, gostaria de criar posts.
+
+### História #2 Como usuário, gostaria de criar posts
+
 **Tarefas e responsáveis:**
+
 * Criar um banco de dados que armazenará as informações relacionadas aos posts. [Bernardo]
 * Elaborar as tabelas que representarão cada post no banco de dados. [Bernardo]
 * Elaborar uma interface de usuário para criação de post. [Wilgnert]
 * Fazer a comunicação entre a criação do post e o armazenamento no banco de dados. [Matheus]
 * Implementar o mecanismo de atualização do feed. [Wilgnert]
-### História #3: Como visualizador, gostaria de ter acesso a um feed de posts.
+
+### História #3: Como visualizador, gostaria de ter acesso a um feed de posts
+
 **Tarefas e responsáveis:**
+
 * Elaborar uma interface de usuário para a visualização do feed. [Wilgnert]
 * Implementar o mecanismo de extração de informações do banco de dados e de exibição no feed. [Matheus]
-### História #4: Como visualizador, gostaria de filtrar artes por tag.
+
+### História #4: Como visualizador, gostaria de filtrar artes por tag
+
 **Tarefas e responsáveis:**
+
 * Elaborar uma interface de usuário para filtragem de tags. [Wilgnert]
 * Implementar o mecanismo interno de filtragem de posts por tag. [Matheus]
 * Implementar a atualização condicional do feed. [Wilgnert]
