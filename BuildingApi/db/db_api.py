@@ -25,11 +25,12 @@ def create_user(username, password):
         cursor.execute("""
                         INSERT INTO users VALUES (?, ?, ?)
                         """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
     
 def remove_user(username):
@@ -44,11 +45,12 @@ def remove_user(username):
         cursor.execute("""
                         DELETE FROM users WHERE username = ?
                         """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
     
 def all_users():
@@ -62,8 +64,8 @@ def all_users():
                                 """)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -80,13 +82,13 @@ def return_user(username):
                                 """, data)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
 
-def create_post(author, title, image, body):
+def create_post(author, title, body):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -94,26 +96,27 @@ def create_post(author, title, image, body):
     data = (author, )
     try:
         query = cursor.execute("""
-                            SELECT post_count FROM users WHERE username = ?
-                            """, data)
+                                SELECT post_count FROM users WHERE username = ?
+                                """, data)
         post_id = query.fetchone()[0]
         # Inserts a new entry in the posts table with the given information.
-        data = (author, post_id, title, image, body)
+        data = (author, post_id, title, body)
         cursor.execute("""
-                        INSERT INTO posts VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO posts VALUES (?, ?, ?, ?)
                         """, data)
         # Updates the user's post count.
         data = (post_id + 1, author)
         cursor.execute("""
-                    UPDATE users SET post_count = ? WHERE username = ?
-                    """, data)
+                        UPDATE users SET post_count = ? WHERE username = ?
+                        """, data)
+        # Commit changes.
+        connection.commit()
         # Returns the tuple (author, post_id).
         return (author, post_id)
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
-        # Commit changes and finalizes the connection with the database.
-        connection.commit()
+        # Finalizes the connection with the database.
         connection.close()
 
 def remove_post(author, post_id):
@@ -126,13 +129,14 @@ def remove_post(author, post_id):
     data = (author, post_id)
     try:
         cursor.execute("""
-                    DELETE FROM posts WHERE author = ? AND id = ?
-                    """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+                        DELETE FROM posts WHERE author = ? AND id = ?
+                        """, data)
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
 
 def all_posts():
@@ -146,8 +150,8 @@ def all_posts():
                                 """)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -164,8 +168,8 @@ def return_post(author, post_id):
                                 """, data)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -182,8 +186,80 @@ def posts_from_user(author):
                                 """, data)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
+        connection.close()
+
+def assign_image(image, author, post_id):
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    # Creates the entry for the image and inserts it
+    # in the images table with the given information.
+    data = (image, author, post_id)
+    try:
+        cursor.execute("""
+                        INSERT INTO images VALUES (?, ?, ?)
+                        """, data)
+        # Commit changes.
+        connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
+        connection.close()
+
+def remove_image(author, post_id):
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    # Removes the entry for images table that match the given information.
+    data = (author, post_id)
+    try:
+        cursor.execute("""
+                        DELETE FROM images WHERE author = ? AND post_id = ?
+                        """, data)
+        # Commit changes.
+        connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
+        connection.close()
+
+def all_images():
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    # Queries all the images from images table.
+    try:
+        query = cursor.execute("""
+                                SELECT image FROM images
+                                """)
+        result = query.fetchall()
+        return result
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
+        connection.close()
+
+def image_from_post(author, post_id):
+    # Instantiates the connection and the cursor to the database.
+    connection = sqlite3.connect(db_path)
+    cursor = connection.cursor()
+    # Queries the image from a given post.
+    data = (author, post_id)
+    try:
+        query = cursor.execute("""
+                                SELECT image FROM images WHERE author = ? AND post_id = ?
+                                """, data)
+        result = query.fetchall()
+        return result
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -199,11 +275,12 @@ def assign_tags(tags, author, post_id):
         cursor.executemany("""
                             INSERT INTO tags VALUES (?, ?, ?)
                             """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
 
 def remove_tags(tags, author, post_id):
@@ -216,11 +293,12 @@ def remove_tags(tags, author, post_id):
         cursor.executemany("""
                             DELETE FROM tags WHERE tag = ? AND author = ? AND post_id = ?
                             """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
 
 def all_tags():
@@ -234,8 +312,8 @@ def all_tags():
                                 """)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -252,8 +330,8 @@ def tags_from_post(author, post_id):
                                 """, data)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -269,7 +347,7 @@ def search_tags(tags):
         for i in range (len(tags)):
             data = (tags[i], )
             query = cursor.execute("""
-                                SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
+                                    SELECT * FROM posts WHERE (author, id) IN (SELECT author, post_id FROM tags WHERE tag = ?)
                                     """, data)
             result = query.fetchall()
             if (i == 0):
@@ -277,8 +355,8 @@ def search_tags(tags):
             has_all = [value for value in result if value in solution]
             solution = has_all
         return solution
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -291,12 +369,12 @@ def return_password(name):
     data = (name, )
     try:
         query = cursor.execute("""
-                            SELECT password FROM users WHERE (username = ?)
+                                SELECT password FROM users WHERE (username = ?)
                                 """, data)
         result = query.fetchall()
         return result
-    except sqlite3.Error:
-        return -1
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
     finally:
         # Finalizes the connection with the database.
         connection.close()
@@ -309,17 +387,18 @@ def change_username(old_name, new_name):
     data = (new_name, old_name)
     try:
         cursor.execute("""
-                    UPDATE users SET username = ? WHERE username = ?
-                    """, data)
+                        UPDATE users SET username = ? WHERE username = ?
+                        """, data)
         cursor.execute("""
-                    UPDATE posts SET author = ? WHERE author = ?
-                    """, data)
+                        UPDATE posts SET author = ? WHERE author = ?
+                        """, data)
         cursor.execute("""
-                    UPDATE tags SET author = ? WHERE author = ?
-                    """, data)
-    except sqlite3.Error:
-        return -1
-    finally:
-        # Commit changes and finalizes the connection with the database.
+                        UPDATE tags SET author = ? WHERE author = ?
+                        """, data)
+        # Commit changes.
         connection.commit()
+    except sqlite3.Error as error:
+        return error.sqlite_errorname
+    finally:
+        # Finalizes the connection with the database.
         connection.close()
