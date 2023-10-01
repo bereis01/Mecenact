@@ -9,7 +9,7 @@ def get_user(name, password):
     if(target == []):
         return "User not found\n"
     if (password == db.return_password(name)[0][0]):
-        return get_posts_user(name), 200
+        return get_posts_user(name)
     return "Wrong password\n", 403
 
 @app.get("/posts/user/<name>")
