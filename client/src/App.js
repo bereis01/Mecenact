@@ -19,12 +19,8 @@ function App() {
       {state === "login" && <Login setUser={setCurrUser} setValor={setFeedPostsSpy} setState={setState}/>}
       {state === "signin" && <Signin setUser={setCurrUser} setValor={setFeedPostsSpy} setState={setState}/>}
       {state === "feed" && 
-        <>
-          <p>Usuário atual:{currUser.user}</p>
-          <p>feed</p>
-          <button onClick={() => {setState("login"); setCurrUser({})}}>Log out</button>
           <Feed user={currUser} setUser={setCurrUser} setState={setState} posts={feedPosts} setPosts={setFeedPostsSpy}/>
-        </>}
+      }
     </>
   )
 }
