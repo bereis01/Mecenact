@@ -1,7 +1,15 @@
 import db.db_api as db
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app=app, 
+            resources={r'/*':{"origins":'http://localhost:3000'}}
+    )
+
+@app.route("/posts/all")
+def get_all_posts():
+    return make_response(jsonify(db.all_posts()), 200)
 
 @app.get("/user/<name>/login/<password>")
 def get_user(name, password):
