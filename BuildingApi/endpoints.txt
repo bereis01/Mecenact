@@ -3,6 +3,8 @@ HTTP method     API endpoint                        Description
 GET             /user/<name>/login/<password>       Check username and password and if it matches, return all posts from that user.
                                                      This is for login.
 
+GET             /posts                              Get all posts.
+
 GET             /posts/user/<name>                  Get all posts from a user. Used to search posts by user.
 
 GET             /posts/tags/<tags>                  Get all posts that contains all of the tags in <tags>.
@@ -13,7 +15,13 @@ GET             /posts/tags/<tags_t>/<tags_f>       Get all posts that contains 
                                                      <tags_t> and <tags_f> follow the same rules as <tags> in the previous endpoint, e.g.:
                                                       /posts/tags/tag1,tag 2/tag 3
 
-GET             /tags/<author>/<post_id>            Get all tags from a given post.
+GET             /posts/<author>/<post_id>           Get an specific post from an author.
+
+GET             /tags/<author>/<post_id>            Get all tags from a specific post.
+
+GET             /tags                               Get all existing tags.
+
+GET             /image/<author>/<post_id>           Get the image from a specific post.
 
 POST            /user                               Create a new user. Parameter passed must be a list of two strings:
                                                      the first one is the username and the second one is the password.
@@ -23,6 +31,8 @@ POST            /posts                              Create a new post. Parameter
 
 PUT             /tags/<author>/<post_id>            Update a post by assigning new tags to it. Parameter passed (tags) must follow the same definitions as previous tags.
 
+PUT             /image/<author>/<post_id>           Update the image of a post.
+
 PUT             /user/<name>/<password>             Update a user's username. <name> is the old name and <password> is used for validation.
 
 DELETE          /posts/<author>/<post_id>           Delete a post.
@@ -30,3 +40,5 @@ DELETE          /posts/<author>/<post_id>           Delete a post.
 DELETE          /user/<name>/<password>             Delete a user and use <password> for validation.
 
 DELETE          /tags/<tags>/<author>/<post_id>     Remove the tags in <tags> from a post. <tags> must follow the same rules previously described.
+
+DELETE          /image/<author>/<post_id>           Remove the image from a post.
