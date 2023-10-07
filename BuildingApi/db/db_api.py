@@ -192,16 +192,16 @@ def posts_from_user(author):
         # Finalizes the connection with the database.
         connection.close()
 
-def assign_image(image, author, post_id):
+def assign_image(image, extension, author, post_id):
     # Instantiates the connection and the cursor to the database.
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     # Creates the entry for the image and inserts it
     # in the images table with the given information.
-    data = (image, author, post_id)
+    data = (image, extension, author, post_id)
     try:
         cursor.execute("""
-                        INSERT INTO images VALUES (?, ?, ?)
+                        INSERT INTO images VALUES (?, ?, ?, ?)
                         """, data)
         # Commit changes.
         connection.commit()
@@ -236,7 +236,7 @@ def all_images():
     # Queries all the images from images table.
     try:
         query = cursor.execute("""
-                                SELECT image FROM images
+                                SELECT * FROM images
                                 """)
         result = query.fetchall()
         return result
@@ -254,7 +254,7 @@ def image_from_post(author, post_id):
     data = (author, post_id)
     try:
         query = cursor.execute("""
-                                SELECT image FROM images WHERE author = ? AND post_id = ?
+                                SELECT (image, extension) FROM images WHERE author = ? AND post_id = ?
                                 """, data)
         result = query.fetchall()
         return result
