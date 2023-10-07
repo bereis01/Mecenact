@@ -7,18 +7,14 @@ cors = CORS(app=app,
             resources={r'/*':{"origins":'http://localhost:3000'}}
     )
 
-@app.route("/posts/all")
-def get_all_posts():
-    return make_response(jsonify(db.all_posts()), 200)
-
 @app.get("/user/<name>/login/<password>")
 def get_user(name, password):
     target = db.return_user(name)
     if(target == []):
-        return "User not found\n"
+        return make_response({'error':"User not found\n"}, 404)
     if (password == db.return_password(name)[0][0]):
         return get_posts_user(name)
-    return "Wrong password\n", 403
+    return make_response({'error':"Wrong password\n"}, 403)
 
 @app.get("/posts")
 def all_posts():
@@ -108,32 +104,32 @@ def update_user(name, password):
         info = request.get_json()
         target = db.return_user(name)
         if(target == []):
-            return "User not found\n"
+            return {'error':"User not found\n"}, 404
         if (password == db.return_password(name)[0][0]):
             db.change_username(name, info[0])
             return jsonify(info[0]), 200
-        return "Wrong password\n", 403
+        return {'error':"Wrong password\n"}, 403
     return {"error": "Request must be JSON"}, 415
 
 @app.delete("/posts/<author>/<post_id>")
 def delete_post(author, post_id):
     result = db.remove_post(author, post_id)
-    return "Delete successful\n", 204
+    return {'message':"Delete successful\n"}, 204
 
 @app.delete("/user/<name>/<password>")
 def delete_user(name, password):
     if (password == db.return_password(name)[0][0]):
         result = db.remove_user(name)
-        return "Delete successful\n", 204
-    return "Wrong password or user\n", 403
+        return {'message':"Delete successful\n"}, 204
+    return {'error':"Wrong password or user\n"}, 403
 
 @app.delete("/tags/<tags>/<author>/<post_id>")
 def delete_tags(tags, author, post_id):
     tag_array = tags.split(",")
     result = db.remove_tags(tag_array, author, post_id)
-    return "Delete successful\n", 204
+    return {'message':"Delete successful\n"}, 204
 
 @app.delete("/image/<author>/<post_id>")
 def delete_image(tags, author, post_id):
     result = db.remove_image(author, post_id)
-    return "Delete successful\n", 204
+    return {'message':"Delete successful\n"}, 204
