@@ -254,7 +254,7 @@ def image_from_post(author, post_id):
     data = (author, post_id)
     try:
         query = cursor.execute("""
-                                SELECT (image, extension) FROM images WHERE author = ? AND post_id = ?
+                                SELECT image, extension FROM images WHERE author = ? AND post_id = ?
                                 """, data)
         result = query.fetchall()
         return result
