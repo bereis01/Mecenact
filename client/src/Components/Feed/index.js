@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Header'
 import Post from '../Post'
 
 function Feed(props) {
-  const [loc, setLoc] = useState('self')
+  const [loc, setLoc] = useState(props.user.user)
+  
+  useEffect(() => {
+    document.title = `Mecenact — ${loc}`
+    if (loc ==='') document.title = 'Mecenact'
+  }, [loc])
 
   return (
     <>

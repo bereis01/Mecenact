@@ -16,11 +16,13 @@ function Post(props) {
     const posts = await getUserPosts(props.author);
     props.setPosts(posts)
     props.setLoc(props.author)
+    window.scrollTo(0,0)
   }
   const seeTagFeed = async(tag)=>{
     const posts = await getTaggedPosts(tag);
     props.setPosts(posts)
     props.setLoc(tag)
+    window.scrollTo(0,0)
 
   }
   return (

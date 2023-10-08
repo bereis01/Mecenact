@@ -44,18 +44,28 @@ async function getTaggedPosts(tags) {
     }
 }
 
-function getFilteredPosts(tags_t, tags_f) {
+async function getAllTags() {
+    const res = await fetch(endpoint(`/tags`));
+    const json = await res.json();
+    return json.map(x => x[0]);
+}
+
+async function getFilteredPosts(tags_t, tags_f) {
     let str = '/posts/tags/';
-    if (typeof tags_t === 'string') str += tags_t
+    if (typeof tags_t === 'string') str = str.concat(tags_t)
     else {
-        str += tags_t.map(x => String(x)).join(',') + '/';
+        str = str.concat(tags_t.join(','));
     }
-    if (typeof tags_f === 'string') str += tags_f;
-    else {
-        str += tags_f.map(x => String(x)).join(',');
+    if (tags_f) {
+        if (typeof tags_f === 'string') str = str.concat("/", tags_f);
+        else {
+            str = str.concat("/", tags_f.join(','));
+        }
     }
 
-    return fetch(endpoint(str)).then(res => res.json());
+    const res = await fetch(endpoint(str));
+    const json = await res.json();
+    return json;
 }
 
 function getTagsFromPost(author, post_id) {
@@ -82,6 +92,7 @@ export {
     getUserPosts,
     getAllPosts,
     getTaggedPosts,
+    getAllTags,
     getFilteredPosts,
     getTagsFromPost,
     createNewUser

@@ -6,7 +6,12 @@ import { getUserPosts } from './endpoint';
 
 function App() {
 
+  const [currUser, setCurrUser] = useState({})
+  const [feedPosts, setFeedPosts] = useState([{}]);
+  const [state, setState] = useState('login')
+
   useEffect(() => {
+    document.title = 'Mecenact';
     async function getLoggedUserPosts() {
       let userData = localStorage.getItem('user');
       if (userData != null) {
@@ -14,6 +19,7 @@ function App() {
           userData = JSON.parse(userData);
           const posts = await getUserPosts(userData.user)
           setCurrUser(userData)
+          document.title = `Mecenact — ${currUser.user}`;
           setFeedPosts(posts)
           setState("feed")
         } catch (error) {
@@ -23,11 +29,7 @@ function App() {
     }
     getLoggedUserPosts();
     
-  }, [])
-
-  const [currUser, setCurrUser] = useState({})
-  const [feedPosts, setFeedPosts] = useState([{}]);
-  const [state, setState] = useState('login')
+  }, [currUser.user])
 
   return (
     <div>
