@@ -4,25 +4,29 @@ function endpoint(s) {
 
 async function getLogin(name, password) {
     const res = await fetch(endpoint(`/user/${name}/login/${password}`));
-    if (!res.ok) {
-        throw res
-    }
     const json = await res.json();
+    if (!res.ok) {
+        throw json.error
+    }
     return json;
 }
 
 async function getAllPosts() {
-    const res = await fetch(endpoint('/posts/all'));
+    const res = await fetch(endpoint('/posts'));
+    const json = await res.json();
     if (!res.ok) {
         throw res;
     }
-    const json = await res.json();
     return json;
 }
 
 async function getUserPosts(name) {
     const res = await fetch(endpoint(`/posts/user/${name}`))
-    return await res.json();
+    const json = await res.json();
+    if (!res.ok) {
+        throw res;
+    }
+    return json;
 }
 
 function getTaggedPosts(tags) {
@@ -68,6 +72,7 @@ async function createNewUser(name, pass) {
 }
 
 export {
+    endpoint,
     getLogin,
     getUserPosts,
     getAllPosts,

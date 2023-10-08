@@ -20,6 +20,7 @@ function Signin(props) {
         try {
             await createNewUser(user, pass);
             const posts = await getLogin(user, pass);
+            localStorage.setItem('user', `{"user":"${user}"}`)
             props.setUser({'user': user})
             props.setState("feed");
             props.setValor(posts);

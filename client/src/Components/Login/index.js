@@ -5,15 +5,16 @@ import {getLogin} from '../../endpoint';
 import Warning from '../Warning';
 
 function Login(props) {
-    const [username, setUsername] = useState('Patricia Perrien');
-    const [password, setPassword] = useState('-5cpwYtfoI6');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [err, setErr] = useState(false);
-    
+
     const aoSalvar = async (e) => {
         e.preventDefault();
     
         try {
             const json = await getLogin(username, password);     
+            localStorage.setItem('user', `{"user":"${username}"}`)
             props.setValor(json);
             props.setState('feed');
             props.setUser({'user':username})

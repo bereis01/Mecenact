@@ -9,7 +9,7 @@ function Header(props) {
         if (loc === 'home') return;
         const posts = await getAllPosts();
         props.setPosts(posts)
-        setLoc('self')
+        setLoc('home')
     }
     const irMeusPosts = async (e) => {
         if (loc === 'self') return;
@@ -20,6 +20,7 @@ function Header(props) {
 
     const logout = () => {
         props.setState("login");
+        localStorage.removeItem('user')
         props.setUser({});
     }
     return (
