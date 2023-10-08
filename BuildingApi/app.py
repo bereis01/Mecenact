@@ -1,4 +1,6 @@
 import db.db_api as db
+import PIL.Image as Image
+import io
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 
@@ -62,7 +64,9 @@ def all_tags():
 @app.get("/image/<author>/<post_id>")
 def get_image(author, post_id):
     result = db.image_from_post(author, post_id)
-    return jsonify(result), 200 
+    img = Image.open(io.BytesIO(result[0][0]))
+    img.show()
+    return result[0][0], 200
 
 @app.post("/user")
 def add_user():
