@@ -66,6 +66,13 @@ def get_image(author, post_id):
     res.content_type = 'image/' + result[0][1][1:]
     return res
 
+@app.get("/user/exists/<name>")
+def existence(name):
+    result = db.return_user(name)
+    if (result == []):
+        return jsonify(False), 200
+    return jsonify(True), 200
+
 @app.post("/user")
 def add_user():
     if request.is_json:
