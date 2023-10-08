@@ -11,6 +11,10 @@ GET             /posts/tags/<tags>                  Get all posts that contains 
                                                      <tags> must be a comma separated string and a tag may have blank spaces, e.g.:
                                                       /posts/tags/tag1,tag 2,tag 3
 
+GET             /posts/tags_not/<tags>               Get all posts that don´t contains any of the tags in <tags>.
+                                                     <tags> must be a comma separated string and a tag may have blank spaces, e.g.:
+                                                      /posts/tags/tag1,tag 2,tag 3
+
 GET             /posts/tags/<tags_t>/<tags_f>       Get all posts that contains all of the tags in <tags_t> and don't have any of the tags in <tags_f>.
                                                      <tags_t> and <tags_f> follow the same rules as <tags> in the previous endpoint, e.g.:
                                                       /posts/tags/tag1,tag 2/tag 3
