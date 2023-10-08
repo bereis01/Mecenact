@@ -10,7 +10,7 @@ function Post(props) {
       setTags(postTags);
     };
     getTags();
-  });
+  }, [props.author, props.id]);
   
   const seeAuthorFeed = async()=>{
     const posts = await getUserPosts(props.author);
