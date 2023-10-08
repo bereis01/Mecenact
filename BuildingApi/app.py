@@ -32,6 +32,17 @@ def get_posts_tags(tags):
     result = db.search_tags(tag_array)
     return jsonify(result), 200
 
+@app.get("/posts/tags_not/<tags>")
+def get_posts_tags_not(tags):
+    tag_array = tags.split(",")
+    result_t = db.all_posts()
+    result_f = db.search_tags(tag_array)
+    result = []
+    for element in result_t:
+        if element not in result_f:
+            result.append(element)
+    return jsonify(result), 200
+
 @app.get("/posts/tags/<tags_t>/<tags_f>")
 def get_posts_tags_plus(tags_t, tags_f):
     tag_array_t = tags_t.split(",")
