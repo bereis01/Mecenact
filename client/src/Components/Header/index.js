@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { getAllPosts, getUserPosts } from '../../endpoint'
 
 function Header(props) {
-    const [loc, setLoc] = useState('self')
     const irPaginaInicial = async (e) => {
-        if (loc === 'home') return;
+        if (props.loc === 'home') return;
         const posts = await getAllPosts();
         props.setPosts(posts)
-        setLoc('home')
+        props.setLoc('home')
     }
     const irMeusPosts = async (e) => {
-        if (loc === 'self') return;
+        if (props.loc === props.user.user) return;
         const posts = await getUserPosts(props.user.user)
         props.setPosts(posts)
-        setLoc('self')
+        props.setLoc(props.user.user)
     }
 
     const logout = () => {

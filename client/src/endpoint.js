@@ -29,13 +29,18 @@ async function getUserPosts(name) {
     return json;
 }
 
-function getTaggedPosts(tags) {
+async function getTaggedPosts(tags) {
     if (typeof(tags) == 'string') {
-        return fetch(endpoint(`/posts/tags/${tags}`)).then(res => res.json());
+        const res = await fetch(endpoint(`/posts/tags/${tags}`));
+        const json = await res.json();
+        return json;
     }
     else {
         const str = tags.map(x => String(x)).join(',');
-        return fetch(endpoint(`/posts/tags/${str}`)).then(res => res.json());
+        const res = await fetch(endpoint(`/posts/tags/${str}`));
+        const json = await res.json();
+        return json;
+
     }
 }
 

@@ -25,25 +25,12 @@ function App() {
   const [feedPosts, setFeedPosts] = useState([{}]);
   const [state, setState] = useState('login')
 
-  const setFeedPostsSpy = (e) => {
-    console.log(e);
-    setFeedPosts(e);
-  }
-  
-
-  const aoCarregar = async () => {
-    if (currUser.user !== "") {
-      setFeedPosts(await getUserPosts(currUser.user))
-      setState("feed")
-    }
-  }
-
   return (
-    <div onLoad={aoCarregar}>
-      {state === "login" && <Login user={currUser} setUser={setCurrUser} setValor={setFeedPostsSpy} setState={setState}/>}
-      {state === "signin" && <Signin setUser={setCurrUser} setValor={setFeedPostsSpy} setState={setState}/>}
+    <div>
+      {state === "login" && <Login user={currUser} setUser={setCurrUser} setValor={setFeedPosts} setState={setState}/>}
+      {state === "signin" && <Signin setUser={setCurrUser} setValor={setFeedPosts} setState={setState}/>}
       {state === "feed" && 
-          <Feed user={currUser} setUser={setCurrUser} setState={setState} posts={feedPosts} setPosts={setFeedPostsSpy}/>
+          <Feed user={currUser} setUser={setCurrUser} setState={setState} posts={feedPosts} setPosts={setFeedPosts}/>
       }
     </div>
   )
