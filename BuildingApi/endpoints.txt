@@ -23,6 +23,8 @@ GET             /tags                               Get all existing tags.
 
 GET             /image/<author>/<post_id>           Get the image from a specific post.
 
+GET             /user/exists/<name>                 Return true if user exists or false otherwise.
+
 POST            /user                               Create a new user. Parameter passed must be a list of two strings:
                                                      the first one is the username and the second one is the password.
 
