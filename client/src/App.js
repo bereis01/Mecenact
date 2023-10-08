@@ -10,9 +10,9 @@ function App() {
     async function getLoggedUserPosts() {
       let userData = localStorage.getItem('user');
       if (userData != null) {
-        try {          
-          const posts = await getUserPosts(userData.user)
+        try {       
           userData = JSON.parse(userData);
+          const posts = await getUserPosts(userData.user)
           setCurrUser(userData)
           setFeedPosts(posts)
           setState("feed")
