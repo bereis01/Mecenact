@@ -1,0 +1,237 @@
+.cabecalho {
+    width: 100vw;
+    display: flex;
+    height: 10vh;
+    justify-content: space-evenly;
+    background-color: bisque;
+    color: navy;
+    font-size: 24px;
+}
+
+.cabecalho > div {
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+}
+
+.cabecalho > div:hover {
+    background-color: navy;
+    color: bisque;
+}
+
+.user-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top:10vh;
+    right: 5vh;
+    background-color:bisque;
+    color: navy;
+    width: 25vw;
+    box-shadow: 0px 0px 100px 20px rgb(9, 9, 48);
+}
+
+.user-menu div {
+    padding: 80px 0;
+    font-weight: 700;
+}
+
+.user-menu button {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    border:none;
+    padding: 40px 0;
+    width: 100%;
+    font-size: 20px;
+}
+
+.delete-account-button {
+    background-color: bisque;
+    color: navy;
+}
+
+.delete-account-button:hover {
+    background-color: crimson;
+    color: white;
+    border:none;
+    padding: 40px 0;
+    width: 100%;
+}
+
+.logout-button {
+    background-color: bisque;
+    color: navy;
+}
+
+.logout-button:hover {
+    background-color: navy;
+    color: bisque;
+}
+
+.cabecalho ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cabecalho ul li {
+    display: flex;
+    width: auto;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.dropdown {
+    padding: 10px;
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    top: 10vh;
+    left: 12.5%;
+    background-color:bisque;
+    color: navy;
+    width: 75%;
+    min-height: 20%;
+    height: fit-content;
+    box-shadow: 0px 0px 100px 20px rgb(9, 9, 48);
+}
+
+.filter-container {
+    min-height: 20%;
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.filter-container div {
+    box-sizing: border-box;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px
+}
+
+.tags-t {
+    justify-items: left;
+    flex-direction: row-reverse;
+}
+
+.tag-t, .tag-f {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5cqh;
+    align-self: center;
+}
+
+.tag-search {
+    min-height: 30%;
+    height: 30%;
+    padding: 10px 10px;
+    font-size: 24px;
+    line-height: 100%;
+    margin-bottom: 10px;
+    background-color:white;
+    border-radius: 50cqh;
+}
+
+.tag-t {
+    background-color:green;
+}
+
+.tag-f {
+    background-color:red;
+}
+
+.tag-t:hover, .tag-f:hover {
+    background-color: grey;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tags > span {
+    display: flex;
+}
+
+.cabecalho .tag {
+    color: black;
+    cursor:context-menu;
+    text-wrap: nowrap;
+    --bgClr: grey;
+    background-color: var(--bgClr);
+    font-size: 1em;
+    line-height: 1em;
+    padding: 0.5em;
+    align-self: center;
+}
+
+.tag:hover {
+    --bgClr:grey;
+}
+
+.tag-include-button {
+    --bgClr:grey;
+    border: none;
+    background-color: var(--bgClr);
+    height: 100%;
+    width: 3em;
+    border-bottom-left-radius: 25cqh;
+    border-top-left-radius: 25cqh;
+}
+
+.tag-include-button:hover {
+    --bgClr: green;
+}
+
+
+.tag-exclude-button {
+    border: none;
+    --bgClr:grey;
+    background-color: var(--bgClr);
+    height: 100%;
+    width: 3em;
+    border-bottom-right-radius: 25cqh;
+    border-top-right-radius: 25cqh;
+}
+
+.tag-exclude-button:hover {
+    --bgClr:red;
+}
+
+.tag-search-btn {
+    display: block;
+    place-self: center;
+    width: 30vw;
+    height: 8vh;
+    background-color: navy;
+    color: bisque;
+    font-weight: 900;
+    font-size: 36px;
+    border-radius: 50cqh;
+}
+
+.tag-search-btn:hover {
+    background-color: black;
+    color: crimson;
+}
+
+.cabecalho__item {
+    text-align: center;
+    display: inline;
+    height: 100%;
+    padding: 0 60px;
+    width: 200%;
+}
+
+.cabecalho__item:hover {
+    background-color: navy;
+    color: bisque;
+}
+
+.hidden {
+    display: none;
+}

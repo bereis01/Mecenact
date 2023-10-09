@@ -1,0 +1,81 @@
+.post {
+    background-color: bisque;
+    border-width: 0;
+    border-bottom-width: 1.5vh;
+    border-color: navy;
+    border-style: solid;
+    padding: 1.5%;
+    width: 62.5vw;
+    display: flex;
+    flex-direction: column;
+    place-self: center;
+    font-size: 1.5em;
+    text-align: justify;
+    box-sizing: border-box;
+}
+
+.post h2 {
+    color:navy;
+    font-weight: 700;
+    font-size: 2.5em;
+    line-height: 80%;
+    margin-bottom: 24px;
+    text-align: left;
+    display: block;
+}
+
+.post .infos {
+    margin-bottom: 1.5em;
+}
+
+.post .author {
+    font-weight:900;
+}
+
+.post .author:hover {
+    color:blue;
+    cursor:pointer
+}
+
+.post .author:active {
+    color: white;
+}
+
+.post img {
+    width: 100%;
+    align-self: center;
+    border-style: solid;
+    border-color: navy;
+    /* padding: 0.5em; */
+    border-width: 0.5em;
+    box-sizing: border-box;
+    margin-bottom: 1.5em;
+}
+
+.post .tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.post .tags .tag {
+    cursor: pointer;
+    display: block;
+    padding: 10px;
+    background-color:crimson;
+    color:white;
+    border-radius: 50cqh;
+    box-sizing: border-box;
+}
+
+.post .tags .tag:hover {
+    background-color:white;
+    color: crimson;
+}
+
+.post .tags .tag:active {
+    background-color:black;
+    color: white;
+}

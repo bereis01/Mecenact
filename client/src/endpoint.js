@@ -29,7 +29,7 @@ async function getUserPosts(name) {
     return json;
 }
 
-async function getTaggedPosts(tags) {
+async function getPostsTaggedAs(tags) {
     if (typeof(tags) == 'string') {
         const res = await fetch(endpoint(`/posts/tags/${tags}`));
         const json = await res.json();
@@ -51,10 +51,14 @@ async function getAllTags() {
 }
 
 async function getFilteredPosts(tags_t, tags_f) {
-    let str = '/posts/tags/';
-    if (typeof tags_t === 'string') str = str.concat(tags_t)
-    else {
-        str = str.concat(tags_t.join(','));
+    let str = '/posts/tags';
+    if (!tags_t) {
+        str = str.concat("_not")
+    } else {
+        if (typeof tags_t === 'string') str = str.concat("/", tags_t)
+        else {
+            str = str.concat("/", tags_t.join(','));
+        }
     }
     if (tags_f) {
         if (typeof tags_f === 'string') str = str.concat("/", tags_f);
@@ -82,16 +86,26 @@ async function createNewUser(name, pass) {
     }))
     if (!res.ok) throw res;
     return await res.json();
-
-
 }
+
+// async function createPost(author, title, desc, image, ext, tags) {
+//     const res1 = await fetch(new Request(endpoint("/posts")), {
+//         method:['POST'],
+//         body: JSON.stringify([author, title, desc])
+//     })
+//     const [artist, id, head, body] = await res1.json();
+//     const res2 = await fetch(new Request(endpoint(`/image/${artist}/${id}`)), {
+//         method:['PUT'],
+//         body: JSON.stringify(image)
+//     })
+// }
 
 export {
     endpoint,
     getLogin,
     getUserPosts,
     getAllPosts,
-    getTaggedPosts,
+    getPostsTaggedAs,
     getAllTags,
     getFilteredPosts,
     getTagsFromPost,

@@ -1,0 +1,123 @@
+.feed {
+    background-image: url("../../../public/Abstract-Geometric-3D-Seamless-Pattern-.png");
+    background-repeat:repeat-y;
+    background-size: 100%;
+    background-blend-mode:luminosity;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    border-color: black;
+    background-color:navy;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-post-btn {
+    display: inline-block;
+    text-align: center;
+    width: 30vw;
+    height: 8vh;
+    background-color: bisque;
+    margin: 60px 0;
+    color: navy;
+    font-weight: 900;
+    font-size: 36px;
+    border:none;
+    border-radius: 50cqh;
+}
+
+.new-post-btn:hover {
+    background-color: black;
+    color: crimson;
+}
+
+.feed__timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.picture {
+    cursor: pointer;
+    aspect-ratio: 16/9;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#aaa;
+    border: 2px dashed currentColor;
+    transition: color 200ms ease-in-out, background 200ms ease-in-out;
+    outline: none;
+}
+
+.picture:hover {
+    color: #777;
+    background-color: #aaa;
+}
+
+.picture:active {
+    color:navy;
+    background-color: bisque;
+}
+
+.picture:focus {
+    color:navy;
+    background-color: bisque;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.picture__input {
+    display: none;
+}
+
+.picture__img {
+    max-width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.form {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: bisque;
+    color: navy;
+    max-width: 62.5vw;
+    padding: 30px;
+    flex-wrap:nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.form > fieldset {
+    margin-block: 15px;
+}
+
+.form > fieldset > label {
+    display: flex;
+    flex-direction: column;
+}
+
+.form > fieldset > label > span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form .tag-input > input {
+    display: block;
+    margin-block: 15px;
+}
+
+.tag-input > .tag-container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form .tag {
+    display: inline;
+    padding: 10px;
+    border-radius: 50cqh;
+}
+

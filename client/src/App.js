@@ -3,6 +3,7 @@ import Login from './Components/Login';
 import Signin from './Components/Signin';
 import Feed from './Components/Feed';
 import { getUserPosts } from './endpoint';
+import "./App.css"
 
 function App() {
 
