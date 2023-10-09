@@ -86,3 +86,14 @@
 * Elaborar uma interface de usuário para filtragem de tags. [Wilgnert]
 * Implementar o mecanismo interno de filtragem de posts por tag. [Matheus]
 * Implementar a atualização condicional do feed. [Wilgnert]
+
+## Diagramas UML
+
+### Diagrama de Pacotes
+<img src="https://i.imgur.com/yuogkXI.png" alt="Package Diagram">
+
+### Diagrama de Atividades
+<img src="https://i.imgur.com/O7J2IbY.png" alt="Activity Diagram">
+
+## Esquema Relacional da Base de Dados
+<img src="https://i.imgur.com/OdS1wQT.png" alt="Database Scheme">
