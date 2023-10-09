@@ -92,8 +92,14 @@
 ### Diagrama de Pacotes
 <img src="https://i.imgur.com/yuogkXI.png" alt="Package Diagram">
 
+### Diagrama de Classes
+<img src="https://i.imgur.com/jOjRNN0.png" alt="Package Diagram">
+
 ### Diagrama de Atividades
 <img src="https://i.imgur.com/O7J2IbY.png" alt="Activity Diagram">
 
 ## Esquema Relacional da Base de Dados
 <img src="https://i.imgur.com/OdS1wQT.png" alt="Database Scheme">
+
+## Gráfico de Contribuição
+<img src="https://i.imgur.com/htngEXC.png" alt="Contribution">
